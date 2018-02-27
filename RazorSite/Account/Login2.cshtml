@@ -1,0 +1,62 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Log In";
+
+    // Initialize general page variables
+    var email = "";
+    var password = "";
+    var rememberMe = false;
+
+    // Setup validation
+    Validation.RequireField("email", "You must specify an email address.");
+    Validation.RequireField("password", "You must specify a password.");
+    Validation.Add("password",
+        Validator.StringLength(
+            maxLength: 30,
+            minLength: 6,
+            errorMessage: "Password must be from 6-30 characters"));
+
+
+}
+
+<hgroup class="title">
+    <h1>@Page.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+    <h2>Use a local account to log in.</h2>
+    <form method="post">
+        <fieldset>
+            <ol>
+                <li>
+                    <label for="email">Email Address:</label>
+                    <input type="text" id="email" value="@email" />
+                </li>
+                <li>
+                    <label for="password">Password:</label>
+                    <input type="text" id="password" value="@password" />
+                </li>
+                <li class="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe" value="true" checked="@rememberMe" />
+                    <label class="checkbox" for="rememberMe">Remember me?</label>
+                </li>
+            </ol>
+            <input type="submit" value="Log In" />
+        </fieldset>
+    </form>
+    <p>
+        <a href="~/Account/Register">Don't have a Account?</a>
+        <a href="~/Account/ForgotPassword">Did you forget your password?</a>
+    </p>
+</section>
+
+<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @RenderPage("~/Account/_ExternalLoginsList.cshtml")
+</section>
