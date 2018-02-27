@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>@Page.Title.</h1>
+    <h2>Employee List</h2>
+</hgroup>
+
+<article>
+    @if (WebSecurity.IsAuthenticated)
+    {
+        <h3 style="color: forestgreen">Hi <a href="~/Account/Manage">@WebSecurity.CurrentUserName</a>! Here is your employee list</h3>
+    }
+    else
+    {
+        <h3 style="color: sandybrown">You need to <a href="~/Account/Login">login</a> to active this feature</h3>
+    }
+</article>
+
+<aside>
+    <h3>Main Menu</h3>
+    <ul>
+        <li><a href="~/">Home</a></li>
+        <li><a href="~/Employee">Employee</a></li>
+        <li><a href="~/Contact">Contact</a></li>
+    </ul>
+</aside>
