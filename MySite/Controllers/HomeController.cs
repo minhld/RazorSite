@@ -22,12 +22,6 @@ namespace MySite.Controllers
             return View();
         }
 
-        public IActionResult Employee()
-        {
-            ViewData["Message"] = "List of Employee";
-
-            return View();
-        }
 
         public IActionResult Contact()
         {
