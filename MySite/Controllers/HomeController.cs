@@ -15,9 +15,16 @@ namespace MySite.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Login()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Login Here";
+
+            return View();
+        }
+
+        public IActionResult Employee()
+        {
+            ViewData["Message"] = "List of Employee";
 
             return View();
         }
