@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
     Page.Title = "About";
+    var keyCs = "a";
 }
 
 <hgroup class="title">
@@ -9,15 +10,47 @@
 </hgroup>
 
 <article>
-    @if (WebSecurity.IsAuthenticated)
-    {
-        <h3 style="color: forestgreen">Hi <a href="~/Account/Manage">@WebSecurity.CurrentUserName</a>! Here is your employee list</h3>
-    }
-    else
+    @if (!WebSecurity.IsAuthenticated)
     {
         <h3 style="color: sandybrown">You need to <a href="~/Account/Login">login</a> to active this feature</h3>
     }
+    else
+    {
+        @* when user logged in *@
+        <h3 style="color: forestgreen">Hi <a href="~/Account/Manage">@WebSecurity.CurrentUserName</a>! Here is your employee list</h3>
+
+        <h3>Search Text</h3>
+        <form method="post">
+            <input type="text" id="searchTxt" name="searchTxt" placeholder="keywords" onkeyup="search();" autofocus />
+            <input type="hidden" value="0" id="keys" />
+            <input type="submit" value="Search" />
+        </form>
+      <p>
+          <h3>Results for keywords "<b id="searchKeys" style="color: forestgreen"></b>"</h3>
+          
+      </p>
+    }
 </article>
+
+<script>
+    function search() {
+        var keys = $('#searchTxt').val();
+        $('#searchKeys').text(keys);
+
+        $('#keys').val(keys);
+
+        $.ajax({
+            method: 'post',
+            url: keys,
+            data: { keywords: 'a' },
+        }).done(function (msg) {
+            console.log(msg);
+        });
+
+
+        
+    }
+</script>
 
 <aside>
     <h3>Main Menu</h3>
