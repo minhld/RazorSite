@@ -1,8 +1,19 @@
-﻿@model IEnumerable<MySite2.Models.Employee>
+﻿@using System.ComponentModel;
 
 @{
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@functions {
+    public string DisplayProperty(object obj, string property)
+    {
+        return TypeDescriptor.GetProperties(obj)[property].GetValue(obj).ToString();
+    }
+}
+
+<h2>Employee List</h2>
+<h5>@Html.ActionLink("Search", "Search")</h5>
 
 <table>
     <thead>
@@ -10,18 +21,18 @@
             <td style="width: 100px">Name</td>
             <td style="width: 50px">Age</td>
             <td style="width: 200px">Email</td>
-            <td style="width: 100px">Company</td>
+            <td style="width: 150px">Company</td>
             <td style="width: 150px">Address</td>
         </tr>
     </thead>
-    @foreach (MySite2.Models.Employee obj in Model)
+    @foreach (var obj in Model)
     {
     <tr>
-        <td>@obj.Name</td>
-        <td>@obj.Age</td>
-        <td>@obj.Email</td>
-        <td>@obj.Company</td>
-        <td>@obj.Address</td>
+        <td>@DisplayProperty(obj, "Name")</td>
+        <td>@DisplayProperty(obj, "Age")</td>
+        <td>@DisplayProperty(obj, "Email")</td>
+        <td>@DisplayProperty(obj, "Company")</td>
+        <td>@DisplayProperty(obj, "Address")</td>
     </tr>
     }
 </table>

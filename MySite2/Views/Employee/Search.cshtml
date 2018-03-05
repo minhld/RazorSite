@@ -1,0 +1,79 @@
+﻿@using System.ComponentModel;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+<h5>@Html.ActionLink("Back To Employee", "Index")</h5>
+
+<div>
+    <label>Search Keywords</label><br />
+    <input type="text" name="searchKeys" id="searchKeys" placeholder="Keywords" onkeyup="search();" />
+    <input type="submit" value="Search" />
+    <br />
+    <input type="radio" id="searchByName" name="search" value="name" checked="checked" grou/> By Name <br />
+    <input type="radio" id="searchByAge" name="search" value="age"/> By Age <br />
+    <input type="radio" id="searchByCompany" name="search" value="company"/> By Company
+</div>
+
+<div>
+    <div style="height: 20px;"></div>
+    <b id="searchResultNum">Results</b>
+    @*<div style="height: 5px;"></div>*@
+    <table>
+        <thead>
+        <td style="width: 100px">Name</td>
+        <td style="width: 50px">Age</td>
+        <td style="width: 200px">Email</td>
+        <td style="width: 150px">Company</td>
+        <td style="width: 150px">Address</td>
+        </thead>
+        <tbody id="searchResults"></tbody>
+    </table>
+</div>
+
+<script>
+    function search() {
+        var keys = $('#searchKeys').val();
+
+        var type = $('input[name="search"]:checked').val();
+
+        var requestUrl = '';
+
+        if (type == 'name') {
+            requestUrl = 'SubmitSearch';
+        } else if (type == 'age') {
+            requestUrl = 'SubmitSearchByAge';
+        } else if (type == 'company') {
+            requestUrl = 'SubmitSearchByCompany';
+        }
+
+        $.ajax({
+            url: requestUrl,
+            data: { 'keys' : keys},
+            method: 'post'
+        }).done(function (json) {
+            $('#searchResults').empty();
+
+            if (json != '') {
+
+                var jsonObj = JSON.parse(json);
+                $('#searchResultNum').text('Results (' + jsonObj.length + ')');
+
+                $.each(jsonObj, function (i, v) {
+                    var row = '<tr>' +
+                        '<td>' + v.Name + '</td>' +
+                        '<td>' + v.Age + '</td>' +
+                        '<td>' + v.Email + '</td>' +
+                        '<td>' + v.Company + '</td>' +
+                        '<td>' + v.Address + '</td>' +
+                        '</tr>';
+                    $('#searchResults').append(row);
+                });
+
+            }
+
+        });
+    }
+</script>
