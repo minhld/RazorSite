@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MySite2.Models.Employee>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+            <td style="width: 100px">Name</td>
+            <td style="width: 50px">Age</td>
+            <td style="width: 200px">Email</td>
+            <td style="width: 100px">Company</td>
+            <td style="width: 150px">Address</td>
+        </tr>
+    </thead>
+    @foreach (MySite2.Models.Employee obj in Model)
+    {
+    <tr>
+        <td>@obj.Name</td>
+        <td>@obj.Age</td>
+        <td>@obj.Email</td>
+        <td>@obj.Company</td>
+        <td>@obj.Address</td>
+    </tr>
+    }
+</table>
