@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .table-anchor {
+        margin-top: 10px;
+    }
+</style>
+
 <h2>Search</h2>
 <h5>@Html.ActionLink("Back To Employee", "Index")</h5>
 
@@ -21,7 +27,7 @@
     <div style="height: 20px;"></div>
     <b id="searchResultNum">Results</b>
     @*<div style="height: 5px;"></div>*@
-    <table>
+    <table class="table-anchor">
         <thead>
         <td style="width: 100px">Name</td>
         <td style="width: 50px">Age</td>
